@@ -3,17 +3,23 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { UserComponent } from './components/user/user.component';
 import { DUMMY_USERS } from './dummy-users';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, UserComponent],
+  imports: [RouterOutlet, HeaderComponent, UserComponent, TasksComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   users = DUMMY_USERS;
-  onSelectUser(id: string) {
-    console.log(id);
+  selectedUserId = 'u1';
+
+  get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId)!;
   }
-  title = 'task-mngt-app';
+
+  onSelectUser(id: string) {
+    this.selectedUserId = id;
+  }
 }
